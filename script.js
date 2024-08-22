@@ -3,6 +3,8 @@ const sales =[];
 
 document.getElementById('addItemBtn').addEventListener('click',addItem);
 
+// USED TO ADD A NEW ITEM TO THE INVENTORY//
+
 function addItem() {
     const name = document.getElementById('itemName').value;
     const quantity = parseInt(document.getElementById('itemQuantity').value);
@@ -13,6 +15,8 @@ function addItem() {
         displayInventory();
     }
 }
+
+// UPDATES THE INVENTORY LIST ON THE PAGE//
 
 function displayInventory() {
     const inventoryList = document.getElementById('inventoryList');
@@ -31,6 +35,8 @@ function displayInventory() {
     });
 }
 
+//DECREASES THE QUANTITY OF AN ITEM AND LOGS THE SALE //
+
 function sellItem(index) {
     if (inventory[index].quantity > 0) {
         inventory[index].quantity -= 1;
@@ -45,6 +51,8 @@ function sellItem(index) {
         alert('Out of stock!');
     }
 }
+
+//UPDATES THE SALES LOG ON THE PAGE//
 
 function displaySalesLog() {
     const salesLog = document.getElementById('salesLog');
