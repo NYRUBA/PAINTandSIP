@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text */
+}
+
+h1, h2 {
+    color: #ffffff; /* White text */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Layout Styles */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgb(63, 62, 62) /* Darker black for contrast */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Input and Button Styles */
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc; /* Light gray border */
+    background-color: #333333; /* Dark gray input background */
+    color: #ffffff; /* White text */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffd700; /* Yellow background */
+    color: #000000; /* Black text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ffbf00; /* Darker yellow for hover */
+}
+
+/* List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #262626; /* Dark gray background */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444444; /* Gray border */
+    color: #ffffff; /* White text */
+}
+
+/* Header and Login Styles */
+.login-section {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1a1a1a; /* Darker black for contrast */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.login-section h2 {
+    margin-bottom: 20px;
+    color: #ffffff; /* White text */
+}
+
+/* Dashboard Styles */
+#adminSalesChart {
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #1a1a1a; /* Darker black for contrast */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#adminTotalSales,
+#adminInventoryValue {
+    font-weight: bold;
+    color: #ffd700; /* Yellow text */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+div {
+    background-color: black;
+    border-style: outset;
+    box-shadow: 20px 20px 50px rgb(40, 40, 37);
+
+}

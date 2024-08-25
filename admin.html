@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Page - Paint and Sip Uganda</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add this script in your HTML head for th sales Chart-->
+
+    <title>Admin Dashboard - Paint and Sip Uganda</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add this script in your HTML head -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div>
+    <h1>Admin Dashboard</h1>
+
+
+   <!-- Section for Adding Inventory -->
+    <div>
+
+    </div>
+<div>
+
+    <h2>Inventory Management</h2>
+    <input type="text" id="adminItemName" placeholder="Item Name">
+    <input type="number" id="adminItemQuantity" placeholder="Quantity">
+    <input type="number" id="adminItemPrice" placeholder="Price (UGX)">
+    <button id="adminAddItemBtn">Add Item</button>
+    </div>    
+
+
+    <!-- Section to Display Inventory -->
+    <div>
+    
+    <h2>Current Inventory</h2>
+    <ul id="adminInventoryList"></ul>
+     </div>
+
+    <!-- Section to Display Sales Log -->
+     <div>
+    <h2>Sales Log</h2>
+    <ul id="adminSalesLog"></ul>
+    </div>
+
+    <!-- Section to Display Stock Requests -->
+     <div>
+    <h2>Stock Requests</h2>
+    <ul id="stockRequests"></ul>
+     </div>
+
+     <!-- Dashboard Metrics -->
+     <div>
+        <h2>Dashboard Metrics</h2>
+        <p>Total Sales: UGX <span id="adminTotalSales">0.00</span></p>
+        <p>Current Inventory Value: UGX <span id="adminInventoryValue">0.00</span></p>
+     </div>
+     
+     <!-- Section to Display Sales Chart -->
+     <div>
+    <h2>Sales Reports</h2>
+    <canvas id="adminSalesChart" width="400" height="200"></canvas>
+    </div>
+
+    <!--logout button going back to admin login page-->
+    <a href="adminlogin.html">
+    <button onclick="logout()">Logout</button>
+    </a>
+
+    <!-- Link to Admin JavaScript File -->
+    <script src="admin.js"></script>
+    </div>
+</body>
+</html>
