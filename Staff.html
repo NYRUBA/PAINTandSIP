@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>staff Page-paint and Sip Uganda</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Staff Dashboard</h1>
+    
+    <!--Section for Displaying Inventory-->
+    <div>
+        <h2>Available Inventory</h2>
+        <ul id="staffInventoryList"></ul>
+    </div>
+
+    <!--Section for Requesting Stock-->
+<div>
+    <h2>Request Stock</h2>
+    <input tpye="text" id="requestItemName" placeholder="Item Name">
+    <input type="number" id="requestItemQuantity" placeholder="Quantity">
+    <button id="requestStockBin">Reques Stock</button>
+</div>
+
+<!--Section for Selling Items-->
+<div>
+    <h2>Sell Items</h2>
+    <ul id="Sales Items">
+        <!--The list will be dynamically generated in staff.js-->
+    </ul>
+</div>
+
+<!--check if still relevant-->
+<div>
+    <h2>Sales Log</h2>
+    <ul id="stafflogin.html"></ul>
+</div>
+
+<!--Logout button going back to staff Login page-->
+<a href="stafflogin.html">
+    <button onclick="Logout()">Logout</button>
+</a>
+<!--Link to Staff JavaScript File-->
+    <script scr="staff.js"></script>
+</body>
+</html>
