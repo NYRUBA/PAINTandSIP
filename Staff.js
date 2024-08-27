@@ -1,120 +1,115 @@
-// Mock user database for simplicity
-const staffUsers = [
-    { username: "staff1", password: "password1" },
-    { username: "staff2", password: "password2" }
-];
+const inventory = [];
+const sales = [];
+const stockRequests =[];
 
-let loggedInStaff = null; // Store the logged-in staff member
+document.getElementById('requestStockBtn').addEventListener('click', requestStock);
 
-
-// Simulating staff login
-function staffLogin(username, password) {
-    const user = staffUsers.find(user => user.username === username && user.password === password);
-    if (user) {
-        loggedInStaff = user.username; // Store the logged-in staff member
-        localStorage.setItem('loggedInStaff', JSON.stringify(loggedInStaff)); // Persist login state
-        alert('Login successful!');
-        // Redirect to the staff dashboard (limited access)
-        window.location.href = "staff.html";
-    } else {
-        alert('Invalid credentials. Please try again.');
-    }
+//Save inventory and sales data to local storage
+function saveData() {
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+    localStorage.setItem('sales', JSON.stringify(sales));
 }
 
-// Display available inventory for staff
-function displayAvailableInventory() {
-    const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-    const inventoryList = document.getElementById('staffInventoryList');
+// Load inventory and sales data from localStorage
+function loadData() {
+    const storedInventory = localStorage.getItem('inventory');
+    const storedSales = localStorage.getItem('sales');
+
+    if (storedInventory) {
+        inventory.push(...JSON.parse(storedInventory));
+    }
+    if (storedSales) {
+        sales.push(...JSON.parse(storedSales));
+    }
+
+    displayInventory();
+    displaySalesLog();
+    updateDashboard();
+}
+
+// Run loadData, GenerateSalesReport and updateDashboard when the page loads to retrieve saved data
+window.onload = function(){
+    loadData();
+    generateSalesReport();
+    updateDashboard();
+};
+
+
+
+function displayInventory() {
+    const inventoryList = document.getElementById('inventoryList');
     inventoryList.innerHTML = '';
 
-    inventory.forEach(item => {
+    inventory.forEach((item, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - Quantity: ${item.quantity} - Price: UGX ${item.price.toFixed(2)}`;
+        listItem.textContent = `Item name: ${item.name} - Quantity: ${item.quantity} - Price: UGX ${item.price.toFixed(2)}`;
+
+// Check if stock is low
+        if (item.quantity < 5) {
+            listItem.style.color = 'red';
+            listItem.textContent += ' (Request Stock!)';
+        }
+
+        const sellButton = document.createElement('button');
+        sellButton.textContent = 'Sell';
+        sellButton.addEventListener('click', () => sellItem(index));
+        listItem.appendChild(sellButton);
+
         inventoryList.appendChild(listItem);
     });
 }
 
-// Function to handle item sales by staff
-function sellItem(index) {
-    const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-    const sales = JSON.parse(localStorage.getItem('sales')) || [];
 
+
+function sellItem(index) {
     if (inventory[index].quantity > 0) {
         inventory[index].quantity -= 1;
         sales.push({
             name: inventory[index].name,
             price: inventory[index].price,
-            date: new Date().toLocaleString(),
-            staffMember: loggedInStaff // Assume this is the logged-in staff member
+            date: new Date().toLocaleString()
         });
-
-        // Update local storage
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-        localStorage.setItem('sales', JSON.stringify(sales));
-
-        // Update UI
-        displayAvailableInventory();
-        alert(`Item sold successfully by ${loggedInStaff}!`);
+        displayInventory();
+        displaySalesLog();
+        saveData();
+        generateSalesReport();
+        updateDashboard();
     } else {
-        alert('Out of stock! Please request more stock.');
+        alert('Out of stock!');
     }
+    
 }
 
-// Function for staff to request more stock
-function requestStock(itemName, requestedQuantity) {
-    if (!itemName || requestedQuantity <= 0) {
-        alert("Invalid item or quantity.");
-        return;
-    }
-
-    const stockRequest = {
-        itemName,
-        requestedQuantity,
-        date: new Date().toLocaleString(),
-        staffMember: loggedInStaff // Log the current staff member
-    };
-
-    const currentRequests = JSON.parse(localStorage.getItem('stockRequests')) || [];
-    currentRequests.push(stockRequest);
-
-    // Save the updated stock request (this could be sent to admin)
-    localStorage.setItem('stockRequest', JSON.stringify(currentRequests));
-    alert(`Stock request for ${itemName} submitted.`);
-}
-
-
-
-// Function to display the sales log (only accessible by admin or relevant staff)
 function displaySalesLog() {
-    const sales = JSON.parse(localStorage.getItem('sales')) || [];
     const salesLog = document.getElementById('salesLog');
     salesLog.innerHTML = '';
 
     sales.forEach(sale => {
         const logItem = document.createElement('li');
-        logItem.textContent = `Sold: ${sale.name} - Price: UGX ${sale.price.toFixed(2)} - Date: ${sale.date} - By: ${sale.staffMember}`;
+        logItem.textContent = `Sold: ${sale.name} - Price: UGX ${sale.price.toFixed(2)} - Date: ${sale.date}`;
         salesLog.appendChild(logItem);
     });
 }
 
-// Example usage for login
-document.getElementById('loginBtn').addEventListener('click', () => {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    staffLogin(username, password);
-});
+function requestStock() {
+    const name = document.getElementById('itemName').value.trim;
+    const quantity = parseInt(document.getElementById('itemQuantity').value);
+    
 
-// Example usage for requesting stock
-document.getElementById('requestStockBtn').addEventListener('click', () => {
-    const itemName = document.getElementById('requestItemName').value;
-    const requestedQuantity = parseInt(document.getElementById('requestQuantity').value);
-    requestStock(itemName, requestedQuantity);
-});
+   // Input validation
+   if (!name) {
+    alert('Item name is required.');
+    return;
+}
+if (isNaN(quantity) || quantity <= 0) {
+    alert('Quantity must be a positive number.');
+    return;
+}
 
-// Display inventory when the page loads
-window.onload = displayAvailableInventory;
+    const currentRequests = JSON.parse(localStorage.getItem('stockRequests')) || [];
+    currentRequests.push(stockRequest);
 
-function logout() {
-    localStorage.removeItem('loggedInUser');
-    window.location.href = "stafflogin.html";
+    // Save the updated stock request (this could be sent to admin)
+    localStorage.setItem('stockRequests', JSON.stringify(currentRequests));
+    alert(`Stock request for ${itemName} submitted.`);
 }
