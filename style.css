@@ -115,13 +115,18 @@ div {
     background-color: black;
     border-style: outset;
     box-shadow: 20px 20px 50px rgb(40, 40, 37);
+    color: aliceblue;
 }
-.topnav {
+.topnav a {
     color: #ffffff;
     text-align: center;
     font-size: 17px;
+    float: left;
 
 }
 .topnav a.active {
     color: #cccccc;
+}
+.topnav a:hover {
+    color: #ffbf00;
 }
